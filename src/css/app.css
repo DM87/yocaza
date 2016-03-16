@@ -375,7 +375,7 @@ input.geosuggest__input {
   flex-wrap:nowrap;
 }
 .options button {
-    width: 100%;
+    /*width: 100%;*/
     text-align: center;
     display: inline-block;
     white-space: nowrap;
@@ -423,7 +423,9 @@ input.geosuggest__input {
     border-radius: .15em 0 0 .15em;
     pointer-events: none;
 }
-
+.submitButton {
+  min-width: 150px;
+}
 .submitButton:before {
   box-sizing: content-box;
   font-family: FontAwesome;
@@ -454,6 +456,8 @@ input.geosuggest__input {
 
 .options {
   width:100%;
+  flex-grow: 1;
+  justify-content: center;
 }
 .options button {
   font-size: 30px;
@@ -493,6 +497,10 @@ input.geosuggest__input {
   padding:10px;
 }
 
+#pageLink input{
+  width:300px;
+  margin: 0 10px 0 10px;
+}
 
 .touchControl :active {
     border:1px solid #157ad8;

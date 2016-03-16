@@ -72,7 +72,7 @@ var DropImages = React.createClass({
         files: files
       });
       }
-      
+
       this.setState({
         files: this.state.files.concat(files),
         parseFiles: this.state.parseFiles.concat(
@@ -89,7 +89,7 @@ var DropImages = React.createClass({
 
     getValues: function() {
       return {
-        files: this.state.files, 
+        files: this.state.files,
         parseFiles: this.state.parseFiles
       }
     },
@@ -263,7 +263,7 @@ var App = React.createClass({
       modalIsOpen: false
     });
   },
-  sendPdf: function() {
+  goToPage: function() {
     var that = this;
     console.log('goodbye');
     Parse.Promise.when(
@@ -271,7 +271,7 @@ var App = React.createClass({
       Parse.Promise.when(this.state.houseData.otherImages.parseFiles)
     ).then(function(mainImage, otherImages){
       Parse.Cloud.run('savePdf', {
-        agentContact: that.state.houseData.agentContactInfo, 
+        agentContact: that.state.houseData.agentContactInfo,
         homeDetails: that.state.houseData.homeDetails,
         mainImage: mainImage,
         otherImages: otherImages
@@ -319,11 +319,11 @@ var App = React.createClass({
               onRequestClose={this.closeModal}
               style={customStyles} >
               <br />
-              <h2>Your PDF will be sent to:</h2>
+              <h2>Your feature sheet is available here:</h2>
               <br />
-              <div>{this.state.Email}</div>
+              <div id="pageLink" ><input type='text' value={this.state.Email}/></div>
               <br />
-              <button onClick={this.sendPdf}>Send PDF</button>
+              <button onClick={this.goToPage}>go to page</button>
               <br />
               <br />
           </Modal>
@@ -371,9 +371,6 @@ var ToolBar = React.createClass({
         e.preventDefault();
         hub.emit("data-request");
   },
-  onLogin: function(e){
-      e.preventDefault();
-  },
   onPrint: function(e){
       e.preventDefault();
       window.print();
@@ -383,9 +380,8 @@ var ToolBar = React.createClass({
       <div id="toolbar">
         <div id='logo'><h1>yocaza tools</h1><h2>feature sheet generator</h2></div>
         <div className="options">
-          <button className="loginButton" onClick={this.onLogin}>Sign in</button>
           <button className="printButton" onClick={this.onPrint}>Print</button>
-          <button className="submitButton" onClick={this.onTheEvent}>Send PDF</button>
+          <button className="submitButton" onClick={this.onTheEvent}>Save & Share</button>
         </div>
       </div>
     );
