@@ -42,7 +42,7 @@ body {
 }
 
 .mainImg {
-  background-image: url("./placeholderimages/mainImagePlaceholder.png");
+  background-image: url("./placeholderimages/backgroundimages1.png");
   background-color: #fff;
   width: 21.6cm;
   height:12cm;
@@ -66,7 +66,7 @@ body {
   /*height: 4cm;*/
   overflow: hidden;
   background-color: #333;
-  /*background-image: url("./placeholderimages/subimages1.png");*/
+  /*background-image: url("./placeholderimages/backgroundimage2");*/
 }
 
 .imageContainer {
@@ -76,7 +76,7 @@ body {
   margin: 4px 8px 0 8px;
   height:15.48cm;
   width: 9cm;
-  background-image:url('./placeholderimages/subimage.png');
+  background-image:url('./placeholderimages/backgroundimages2.png');
 }
 
 .containerBackground {

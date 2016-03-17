@@ -263,7 +263,7 @@ var App = React.createClass({
       modalIsOpen: false
     });
   },
-  goToPage: function() {
+  sendPdf: function() {
     var that = this;
     console.log('goodbye');
     Parse.Promise.when(
@@ -323,7 +323,7 @@ var App = React.createClass({
               <br />
               <div id="pageLink" ><input type='text' value={this.state.Email}/></div>
               <br />
-              <button onClick={this.goToPage}>go to page</button>
+              <button onClick={this.sendPdf}>Go to Page</button>
               <br />
               <br />
           </Modal>
