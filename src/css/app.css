@@ -297,7 +297,7 @@ body {
 /**
  * A geosuggest item
  */
-input.geosuggest__input {
+.geosuggest__input {
   color: #157ad8;
   font-family: 'Helvetica Neue', sans-serif;
   font-size: 20px;

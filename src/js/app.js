@@ -56,22 +56,19 @@ var DropImages = React.createClass({
 
   },
     onTouchStart: function(e,x){
-      this.is_touch = (x.touches);
-      this.touching = true;
-      this.onTouchMove(x);
+
     },
-    touchMove: function(e,x){
-      x.dataTransfer.getData("text")
+    onTouchMove: function(e,x){
+      console.log(x)
+      console.log(e)
     },
+    onTouchEnd: function(e,x){
+      console.log(x)
+      console.log(e)
+
+    },
+
     onDrop: function (files) {
-      if (this.state.files.length > 0){
-        files.map((file) => this.state.files.push(file))
-        this.forceUpdate()
-      } else {
-      this.setState({
-        files: files
-      });
-      }
 
       this.setState({
         files: this.state.files.concat(files),
@@ -113,9 +110,9 @@ var DropImages = React.createClass({
                       <div
                       key={i}
                       data-tag={i}
-                      // onTouchEnd={this.dragEnd.bind(this, i)}
-                      onTouchMove={this.touchMove.bind(this, i)}
-                      onTouchStart={this.dragStart.bind(this, i)}
+                      onTouchEnd={this.onTouchEnd.bind(this, i)}
+                      onTouchMove={this.onTouchMove.bind(this, i)}
+                      onTouchStart={this.onTouchStart.bind(this, i)}
                       draggable="true"
                       onDrop={this.dragEnd.bind(this, i)}
                       onDragStart={this.dragStart.bind(this, i)}
@@ -236,6 +233,8 @@ var App = React.createClass({
     getInitialState: function() {
     return {
       modalIsOpen: false,
+      parseId: ''
+
       // Name: "Enter your name on the Feature Sheet",
       // Email: "Enter your email on the Feature Sheet",
       // Mainimage: "Enter your image on the Feature Sheet"
@@ -246,11 +245,13 @@ var App = React.createClass({
     console.log(featureSheet);
     if (!featureSheet.agentContactInfo.email){
       ReactDOM.findDOMNode(this.refs.featuresheetpage.refs.cc.refs.email).focus()
+    } else if (!featureSheet.homeDetails.homeAddress){
+      ReactDOM.findDOMNode(this.refs.featuresheetpage.refs.hd.refs.address).focus()
+      alert("Enter your address before proceeding.")
     } else if (!featureSheet.mainImage.files[0]){
       alert("Enter your images before proceeding.")
     }
     else {
-    this.sendPdf()
     this.setState({
       houseData: featureSheet,
       modalIsOpen: true,
@@ -264,9 +265,9 @@ var App = React.createClass({
       modalIsOpen: false
     });
   },
-  sendPdf: function() {
+  saveHouse: function() {
+
     var that = this;
-    console.log('goodbye');
     Parse.Promise.when(
       this.state.houseData.mainImage.parseFiles[0],
       Parse.Promise.when(this.state.houseData.otherImages.parseFiles)
@@ -277,7 +278,10 @@ var App = React.createClass({
         mainImage: mainImage,
         otherImages: otherImages
       }).then(function(res){
-        console.log(res);
+        console.log("ID IS BEING ASSIGNED")
+        that.setState({
+          parseId: "www.yocaza.heroku.com/house/" + res.id
+        })
       })
     })
   },
@@ -304,7 +308,10 @@ var App = React.createClass({
         textAlign             : "center",
         padding               : "50px"
       }
-};
+};  console.log(this.state.parseId);
+
+
+
     return (
       <main>
       <ToolBar />
@@ -320,12 +327,12 @@ var App = React.createClass({
               onRequestClose={this.closeModal}
               style={customStyles} >
               <br />
-              <h2>Your feature sheet is available here:</h2>
+              <h2>Publish feature sheet?</h2>
               <br />
-              <div id="pageLink" ><input type='text' value={this.state.Email}/></div>
+              <button onClick={this.saveHouse}>Publish</button>
+              <button onClick={this.closeModal}>Cancel</button>
               <br />
-              <button onClick={this.closeModal}>close</button>
-              <br />
+              {this.state.parseId ? <div id="pageLink" ><input type='text' value={this.state.parseId} readOnly /></div> : null}
               <br />
           </Modal>
       </main>
@@ -382,7 +389,7 @@ var ToolBar = React.createClass({
         <div id='logo'><h1>yocaza tools</h1><h2>feature sheet generator</h2></div>
         <div className="options">
           <button className="printButton" onClick={this.onPrint}>Print</button>
-          <button className="submitButton" onClick={this.onTheEvent}>Save & Share</button>
+          <button className="submitButton" onClick={this.onTheEvent}>Publish & Share</button>
         </div>
       </div>
     );

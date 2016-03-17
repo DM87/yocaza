@@ -1,2 +1,3 @@
 node_modules/
 src/js/app-bundle.*
+npm-debug.log
