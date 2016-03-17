@@ -250,6 +250,7 @@ var App = React.createClass({
       alert("Enter your images before proceeding.")
     }
     else {
+    this.sendPdf()
     this.setState({
       houseData: featureSheet,
       modalIsOpen: true,
@@ -323,7 +324,7 @@ var App = React.createClass({
               <br />
               <div id="pageLink" ><input type='text' value={this.state.Email}/></div>
               <br />
-              <button onClick={this.sendPdf}>Go to Page</button>
+              <button onClick={this.closeModal}>close</button>
               <br />
               <br />
           </Modal>
